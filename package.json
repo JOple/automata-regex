@@ -1,0 +1,21 @@
+{
+  "name": "regex",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "g4": "antlr4ts -visitor grammar/Regex.g4 -o grammar/out",
+    "test": "echo ___________________________________________ && echo Compiling grammar && npm run g4 && echo ___________________________________________ && echo Compiling typescript && tsc && echo ___________________________________________ && echo Running index.js && node index.js",
+    "start": "tsc && node index.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "antlr4ts-cli": "^0.4.0-alpha.4",
+    "typescript": "^3.1.1"
+  },
+  "dependencies": {
+    "@types/node": "^10.11.5",
+    "antlr4ts": "^0.4.1-alpha.0"
+  }
+}
