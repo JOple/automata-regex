@@ -1,27 +1,52 @@
 import { Dfa } from "../types/dfa";
-import { regexToTree } from "./regex-to-tree";
-import { buildENfa } from "./tree-to-enfa";
-import { nfaToDfa } from "./nfa-to-dfa";
-import { minimizeDfa } from "./minimize-dfa";
+import { compile } from "./utils";
 
-
-function compile(regex: string): Dfa {
-    let t = regexToTree(regex)
-    let m = buildENfa(t)
-    let n = nfaToDfa(m)
-    let o = minimizeDfa(n)
-    return new Dfa(o)
+export interface StringOperator<T> {
+    (str: string): T
 }
 
-export class Regex {
+export interface StringMatcher extends StringOperator<boolean> { }
 
-    private _dfa: Dfa
-
-    private constructor(regex: string) {
-        this._dfa = compile(regex)
+export function matcher0(dfa: Dfa): StringMatcher {
+    return str => {
+        let state = dfa.startState
+        for (let ch of str) {
+            state = dfa.transition(state, ch)
+            if (!state) return false
+        }
+        return dfa.isFinalState(state)
     }
+}
+export function matcher(regex: string) {
+    return matcher0(compile(regex))
+}
 
-    public static compile(regex: string): Regex {
-        return new Regex(regex)
+
+export interface StringPortion {
+    text: string
+    start: number
+    end: number
+}
+export interface StringFinder extends StringOperator<IterableIterator<StringPortion>> { }
+
+export function finder0(dfa: Dfa): StringFinder {
+    let matcher = matcher0(dfa)
+    return function* (str) {
+        let len = str.length
+        for (let start = 0; start < len; start++) {
+            for (let end = start + 1; end <= len; end++) {
+                let substr = str.substring(start, end)
+                if (matcher(substr)) {
+                    yield {
+                        text: substr,
+                        start: start,
+                        end: end
+                    }
+                }
+            }
+        }
     }
+}
+export function finder(regex: string) {
+    return finder0(compile(regex))
 }

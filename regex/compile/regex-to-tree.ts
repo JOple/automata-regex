@@ -1,8 +1,8 @@
 import { ANTLRInputStream } from "antlr4ts/ANTLRInputStream";
 import { CommonTokenStream } from "antlr4ts/CommonTokenStream";
 
-import { RegexLexer } from "../grammar/out/RegexLexer";
-import { RegexParser, ExpressionContext } from "../grammar/out/RegexParser";
+import { RegexLexer } from "../../grammar/out/RegexLexer";
+import { RegexParser, ExpressionContext } from "../../grammar/out/RegexParser";
 
 export interface RegexTree extends ExpressionContext { }
 

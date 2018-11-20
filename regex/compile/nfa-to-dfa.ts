@@ -1,7 +1,7 @@
-import { NfaModel, States, State, EPS, DfaModel } from "../types/models";
-import { Nfa } from "../types/nfa";
-import { intersection } from "../utils/set-operations";
-import { Dfa } from "../types/dfa";
+import { NfaModel, States, State, EPS, DfaModel } from "../../types/models";
+import { Nfa } from "../../types/nfa";
+import { intersection } from "../../utils/set-operations";
+import { Dfa } from "../../types/dfa";
 
 export type NameCache = { [key: string]: string }
 

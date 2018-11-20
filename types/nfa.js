@@ -13,6 +13,12 @@ class Nfa {
     _unique(states) {
         return new Array(...new Set(states)).sort();
     }
+    isStartState(state) {
+        return new Set(this.startStates).has(state);
+    }
+    isFinalState(state) {
+        return new Set(this.finalStates).has(state);
+    }
     transition(states, input, withEpsilon = true) {
         if (withEpsilon) {
             return this.epsilon(this.transition(states, input, false));

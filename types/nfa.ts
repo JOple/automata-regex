@@ -19,6 +19,12 @@ export class Nfa implements NfaModel {
         return new Array(...new Set(states)).sort()
     }
 
+    public isStartState(state: State): boolean {
+        return new Set(this.startStates).has(state)
+    }
+    public isFinalState(state: State): boolean {
+        return new Set(this.finalStates).has(state)
+    }
     public transition(states: State | States, input: string, withEpsilon = true): States {
         if (withEpsilon) {
             return this.epsilon(this.transition(states, input, false))

@@ -1,7 +1,7 @@
-import { DfaModel, State, States, DfaTransitions } from "../types/models";
-import { Dfa } from "../types/dfa";
-import { deepCopy, jsonPrint } from "../utils/utils";
-import { isSame } from "../utils/set-operations";
+import { DfaModel, State, States, DfaTransitions } from "../../types/models";
+import { Dfa } from "../../types/dfa";
+import { deepCopy, jsonPrint } from "../../utils/utils";
+import { isSame } from "../../utils/set-operations";
 
 function isSameGrouping(a: StateGrouping, b: StateGrouping): boolean {
     for (let state in a) {

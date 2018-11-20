@@ -8,8 +8,11 @@ class Dfa {
         this.finalStates = utils_1.deepCopy(model.finalStates || []);
         this.transitions = utils_1.deepCopy(model.transitions || {});
     }
-    _unique(states) {
-        return new Array(...new Set(states)).sort();
+    isStartState(state) {
+        return this.startState == state;
+    }
+    isFinalState(state) {
+        return new Set(this.finalStates).has(state);
     }
     transition(state, input) {
         return this.transitions[state][input];

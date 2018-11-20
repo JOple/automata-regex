@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const models_1 = require("../types/models");
-const nfa_1 = require("../types/nfa");
-const set_operations_1 = require("../utils/set-operations");
-const dfa_1 = require("../types/dfa");
+const models_1 = require("../../types/models");
+const nfa_1 = require("../../types/nfa");
+const set_operations_1 = require("../../utils/set-operations");
+const dfa_1 = require("../../types/dfa");
 function sname(states, names) {
     let key = new Array(...new Set(states)).sort().join("|");
     if (!names[key])

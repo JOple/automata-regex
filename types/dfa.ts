@@ -1,5 +1,4 @@
-import { NfaModel, NfaTransitions, States, State, EPS, DfaTransitions, DfaModel } from "./models";
-import { isSame, union } from "../utils/set-operations";
+import { State, DfaTransitions, DfaModel } from "./models";
 import { deepCopy } from "../utils/utils";
 
 export class Dfa implements DfaModel {
@@ -15,10 +14,12 @@ export class Dfa implements DfaModel {
         this.transitions = deepCopy(model.transitions || {})
     }
 
-    private _unique(states: States): States {
-        return new Array(...new Set(states)).sort()
+    public isStartState(state: State): boolean {
+        return this.startState == state
     }
-
+    public isFinalState(state: State): boolean {
+        return new Set(this.finalStates).has(state)
+    }
     public transition(state: State, input: string): State {
         return this.transitions[state][input]
     }

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const utils_1 = require("../utils/utils");
+const utils_1 = require("../../utils/utils");
 function isSameGrouping(a, b) {
     for (let state in a) {
         if (a[state] != b[state])

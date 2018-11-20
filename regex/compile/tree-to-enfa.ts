@@ -1,12 +1,12 @@
-import { State, EPS } from "../types/models"
-import { Nfa } from "../types/nfa"
+import { State, EPS } from "../../types/models"
+import { Nfa } from "../../types/nfa"
 
 import { CommonTokenStream } from "antlr4ts/CommonTokenStream"
 import { ANTLRInputStream } from "antlr4ts/ANTLRInputStream"
 import { TerminalNode } from "antlr4ts/tree/TerminalNode"
 
-import { RegexLexer } from "../grammar/out/RegexLexer"
-import { RegexParser, ExpressionContext, TermContext, FactorContext, AtomContext, PlusContext, StarContext, SetContext, GroupContext, QmarkContext, CharacterRangeContext } from "../grammar/out/RegexParser"
+import { RegexLexer } from "../../grammar/out/RegexLexer"
+import { RegexParser, ExpressionContext, TermContext, FactorContext, AtomContext, PlusContext, StarContext, SetContext, GroupContext, QmarkContext, CharacterRangeContext } from "../../grammar/out/RegexParser"
 
 import { regexToTree, RegexTree } from "./regex-to-tree";
 
@@ -85,7 +85,15 @@ function buildChar(m: Nfa, s: State, c: TerminalNode): State {
     return e
 }
 function buildTerminal(n: TerminalNode): string {
-    return n.text
+    let text = n.text
+    switch (text) {
+        case "\\*": return "*"
+        case "\\+": return "+"
+        case "\\(": return "("
+        case "\\)": return ")"
+        case "\\[": return "["
+        default: return text
+    }
 }
 function buildGroup(m: Nfa, s: State, c: GroupContext): State {
     return buildExpression(m, s, c.expression());

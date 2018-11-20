@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const models_1 = require("../types/models");
-const nfa_1 = require("../types/nfa");
+const models_1 = require("../../types/models");
+const nfa_1 = require("../../types/nfa");
 function buildENfa(tree) {
     let m = new nfa_1.Nfa();
     let startState = m.newState();
@@ -64,7 +64,15 @@ function buildChar(m, s, c) {
     return e;
 }
 function buildTerminal(n) {
-    return n.text;
+    let text = n.text;
+    switch (text) {
+        case "\\*": return "*";
+        case "\\+": return "+";
+        case "\\(": return "(";
+        case "\\)": return ")";
+        case "\\[": return "[";
+        default: return text;
+    }
 }
 function buildGroup(m, s, c) {
     return buildExpression(m, s, c.expression());
