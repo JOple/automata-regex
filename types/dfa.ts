@@ -21,7 +21,7 @@ export class Dfa implements DfaModel {
         return new Set(this.finalStates).has(state)
     }
     public transition(state: State, input: string): State {
-        return this.transitions[state][input]
+        return (this.transitions[state] || {})[input]
     }
 
     public newState(): State {
