@@ -15,7 +15,7 @@ class Dfa {
         return new Set(this.finalStates).has(state);
     }
     transition(state, input) {
-        return this.transitions[state][input];
+        return (this.transitions[state] || {})[input];
     }
     newState() {
         let i = Object.keys(this.transitions).length;

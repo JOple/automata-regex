@@ -6,16 +6,23 @@
   "scripts": {
     "g4": "antlr4ts -visitor grammar/Regex.g4 -o grammar/out",
     "test": "echo ___________________________________________ && echo Compiling grammar && npm run g4 && echo ___________________________________________ && echo Compiling typescript && tsc && echo ___________________________________________ && echo Running index.js && node index.js",
-    "start": "tsc && node index.js"
+    "start": "tsc && node index.js",
+    "local": "tsc && node index.js",
+    "server": "tsc && node server/index.js"
   },
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "@types/cytoscape": "^3.2.8",
+    "@types/express": "^4.16.0",
+    "@types/jquery": "^3.3.22",
+    "@types/node": "^10.11.5",
     "antlr4ts-cli": "^0.4.0-alpha.4",
     "typescript": "^3.1.1"
   },
   "dependencies": {
-    "@types/node": "^10.11.5",
-    "antlr4ts": "^0.4.1-alpha.0"
+    "antlr4ts": "^0.4.1-alpha.0",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4"
   }
 }
