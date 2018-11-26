@@ -23,9 +23,16 @@ interface DfaData {
 * ***********************************/
 const DEFAULT_REQ: (regex: string) => JQuery.AjaxSettings = regex => {
     return {
-        method: "GET",
-        url: "http://localhost:4000/regex/" + regex
+        method: "POST",
+        url: "http://localhost:4000/regex",
+        data: { regex: regex },
     }
+}
+function draw(regex: string) {
+    compileRegex(regex).then(d => {
+        console.log(d)
+        drawDfa(d.dfa)
+    })
 }
 function compileRegex(regex: string, requestMaker: (regex: string) => JQuery.AjaxSettings = DEFAULT_REQ): Promise<DfaData> {
     return new Promise<DfaData>((resolve, reject) => {
@@ -34,7 +41,13 @@ function compileRegex(regex: string, requestMaker: (regex: string) => JQuery.Aja
             .fail((jqXhr, err) => reject(err))
     })
 }
+function clearDfa() {
+    let cy = cytoscape({ container: document.getElementById('cy') })
+    cy.destroy()
+}
 function drawDfa(dfa: DfaModel) {
+    clearDfa()
+
     let cache = {}
     let elems = []
 
@@ -91,14 +104,14 @@ function drawDfa(dfa: DfaModel) {
     })
 }
 
-$(() => {
-    let url = new URL(window.location.href)
-    let regex = url.searchParams.get("regex")
-    compileRegex(regex).then(data => {
-        $("#title").text(data.regex)
-        $("#content").text(JSON.stringify(data.dfa, null, 4))
-        console.log(data)
-        return data.dfa
-    }).then(drawDfa)
-})
+// $(() => {
+//     let url = new URL(window.location.href)
+//     let regex = url.searchParams.get("regex")
+//     compileRegex(regex).then(data => {
+//         $("#title").text(data.regex)
+//         $("#content").text(JSON.stringify(data.dfa, null, 4))
+//         console.log(data)
+//         return data.dfa
+//     }).then(drawDfa)
+// })
 

@@ -16,8 +16,8 @@ app.set("view engine", "ejs")
 app.get("/", (req, res) => {
     res.redirect("index.html")
 })
-app.get("/regex/:regex", (req, res) => {
-    let regex = req.param("regex")
+app.post("/regex", (req, res) => {
+    let regex = req.body.regex
     let dfa = compile(regex)
     res.json({
         regex: regex,
