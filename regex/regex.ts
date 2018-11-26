@@ -29,7 +29,7 @@ export interface StringPortion {
 }
 export interface StringFinder extends StringOperator<IterableIterator<StringPortion>> { }
 
-export function finder0(dfa: Dfa): StringFinder {
+export function finderGreedy(dfa: Dfa): StringFinder {
     let matcher = matcher0(dfa)
     return function* (str) {
         let len = str.length
@@ -47,6 +47,26 @@ export function finder0(dfa: Dfa): StringFinder {
         }
     }
 }
-export function finder(regex: string) {
-    return finder0(compile(regex))
+export function finderMax(dfa: Dfa): StringFinder {
+    let matcher = matcher0(dfa)
+    return function* (str) {
+        let len = str.length
+        for (let start = 0; start < len; start++) {
+            for (let end = len; end >= start + 1; end--) {
+                let substr = str.substring(start, end)
+                if (matcher(substr)) {
+                    yield {
+                        text: substr,
+                        start: start,
+                        end: end
+                    }
+                    start = end - 1
+                    break
+                }
+            }
+        }
+    }
+}
+export function finder(regex: string, greedy = false) {
+    return (greedy ? finderGreedy : finderMax)(compile(regex))
 }

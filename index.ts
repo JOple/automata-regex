@@ -1,6 +1,6 @@
 
 import { compile } from "./regex/utils";
-import { finder } from "./regex/regex";
+import { finder, finderMax } from "./regex/regex";
 
 function print(a) {
     console.log(JSON.stringify(a, null, 4))
@@ -12,7 +12,7 @@ function cp(regex: string) {
     console.log("___________________________________")
 }
 
-/**
+/*
  * Uncomment the following statements to print the transition tables
  */
 
@@ -20,7 +20,6 @@ function cp(regex: string) {
 // cp("(M|m)(A|a)(Y|y)(N|n)(A|a)(R|r)(D|d)")
 // cp("(0|1)*1(0|1)(0|1)(0|1)(0|1)(0|1)(0|1)(0|1)(0|1)(0|1)(0|1)")
 // cp("[a-z]?[a-z]?[a-z]?[a-z]?[a-z]?[a-z]?[a-z]?[a-z]?[a-z]?[a-z]?")
-
 
 // cp("(a|b)*")
 // cp("0*10*")
@@ -30,5 +29,6 @@ function cp(regex: string) {
 // cp("[a-z]([a-z]|[A-Z]|[0-9])*")
 // cp("\n")
 
-let find = finder("\\(|\t")
-console.log([...find("aa\taa(bb\nbbabb")])
+let find = finder("a?")
+// console.log([...find("aaaaaabbaaaa")])
+console.log([...find("aaaaaaa")])

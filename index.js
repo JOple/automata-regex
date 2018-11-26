@@ -11,7 +11,7 @@ function cp(regex) {
     print(utils_1.compile(regex));
     console.log("___________________________________");
 }
-/**
+/*
  * Uncomment the following statements to print the transition tables
  */
 // cp("(a|b)*abb")
@@ -25,5 +25,6 @@ function cp(regex) {
 // cp("(((c|d)*(cd|dc))|c|d)?")
 // cp("[a-z]([a-z]|[A-Z]|[0-9])*")
 // cp("\n")
-let find = regex_1.finder("\\(|\t");
-console.log([...find("aa\taa(bb\nbbabb")]);
+let find = regex_1.finder("a?");
+// console.log([...find("aaaaaabbaaaa")])
+console.log([...find("aaaaaaa")]);
