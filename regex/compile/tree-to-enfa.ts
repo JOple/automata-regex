@@ -92,6 +92,7 @@ function buildTerminal(n: TerminalNode): string {
         case "\\(": return "("
         case "\\)": return ")"
         case "\\[": return "["
+        case "\\-": return "-"
         default: return text
     }
 }

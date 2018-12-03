@@ -29,6 +29,26 @@ function cp(regex: string) {
 // cp("[a-z]([a-z]|[A-Z]|[0-9])*")
 // cp("\n")
 
-let find = finder("a?")
-// console.log([...find("aaaaaabbaaaa")])
-console.log([...find("aaaaaaa")])
+let find = finder("[0-9][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9]")
+let str = `Deadline: Dropping of courses with 100% refund for Term 1	
+08/09/2018 Sat
+08:00AM - 03:00PM
+View		Deadline: Dropping of courses with 100% refund for Term 1	
+08/09/20128 Sat
+08:00AM - 03:00PM
+View		Thesis/Dissertation Defense - Proposal for Term 1	
+10/Sep/2018 Mon - 09/11/2018 and 10/11/2018 Fri (Mon-Fri)
+08:00AM - 06:00PM
+View		Thesis/Dissertation Defense - Final for Term 1	
+2018/09/10 Mon - 26 Oct 2018 Fri (Mon-Fri)
+08:00AM - 06:00PM
+View		Start of Classes for Term 1	
+10 Sep 2018 Mon
+08:00AM - 09:00PM
+View		Thesis/Dissertation (T/D) Writing - All for Term 1	
+
+
+
+26/12/2018 
+`
+console.log([...find(str)])

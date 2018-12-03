@@ -1,44 +1,22 @@
-/* ***********************************
-* Section for Data Types
-* ***********************************/
-type State = string
-interface DfaTransition {
-    [input: string]: State
-}
-interface DfaTransitions {
-    [from: string]: DfaTransition
-}
-interface DfaModel {
-    startState: State
-    finalStates: State[]
-    transitions: DfaTransitions
-}
-interface DfaData {
-    regex: string
-    dfa: DfaModel
-}
-
-/* ***********************************
-* Global Functions
-* ***********************************/
-const DEFAULT_REQ: (regex: string) => JQuery.AjaxSettings = regex => {
+const DEFAULT_REQ_COMPILE: (regex: string) => JQuery.AjaxSettings = regex => {
     return {
         method: "POST",
         url: "http://localhost:4000/regex",
-        data: { regex: regex },
+        data: { regex: regex }
     }
 }
-function draw(regex: string) {
-    compileRegex(regex).then(d => {
-        console.log(d)
-        drawDfa(d.dfa)
-    })
-}
-function compileRegex(regex: string, requestMaker: (regex: string) => JQuery.AjaxSettings = DEFAULT_REQ): Promise<DfaData> {
+function compileRegex(regex: string, requestMaker: (regex: string) => JQuery.AjaxSettings = DEFAULT_REQ_COMPILE) {
     return new Promise<DfaData>((resolve, reject) => {
         $.ajax(requestMaker(regex))
             .done(resolve)
             .fail((jqXhr, err) => reject(err))
+    })
+}
+
+function draw(regex: string) {
+    compileRegex(regex).then(d => {
+        console.log(d)
+        drawDfa(d.dfa)
     })
 }
 function clearDfa() {

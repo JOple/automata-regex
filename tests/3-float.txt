@@ -1,0 +1,10 @@
+int   integer;  /* an integer */ 
+float floating; /* a floating-point number */ 
+
+int main() 
+{ 
+    floating = 1.0 / -2.345;         /* assign "floating" 0.5 */             
+    floating = 1 / floating;
+    floating = floating / .3;         
+    integer = floating;            
+}
