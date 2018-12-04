@@ -13,9 +13,8 @@ function regexFind(regex: string, text: string, requestMaker: (regex: string, te
     })
 }
 
-function find(regex: string, text: string) {
+function findLine(regex: string, text: string) {
     return regexFind(regex, text).then(d => {
-        console.log(d)
         var parts: string[] = []
         var i = 0
         for (var hit of d.hits) {
@@ -23,12 +22,29 @@ function find(regex: string, text: string) {
             parts.push("<span class='hit'>" + text.substring(hit.start, hit.end) + "</span>")
             i = hit.end
         }
+        parts.push(text.substring(i, text.length))
         parts = parts.filter(str => str != "")
-        console.log(parts)
-        return parts.join("").replace("\n", "<br>")
+        return parts.join("")
     })
 }
 
-function findRegex(regex: string) {
-    find(regex, $("#src").val().toString()).then(str => $("#dest").html(str))
+function findAll(regex: string) {
+    let plines = []
+    let lines = []
+    $("#dest")
+        .children("")
+        .each((i, e) => { lines.push($(e).text()) })
+    lines.forEach((str, i) => {
+        findLine(regex, str)
+            .then(pstr => plines[i] = pstr)
+            .then(() => {
+                if (plines.length == lines.length) {
+                    var joined = plines
+                        .map(str => str == "" ? "<br>" : str)
+                        .map(str => "<div>" + str + "</div>")
+                        .join("\n")
+                    $("#dest").html(joined)
+                }
+            })
+    })
 }
