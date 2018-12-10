@@ -33,7 +33,7 @@ RBRACK: ']';
 CARET: '^';
 
 CHAR: ESCAPEDCHAR | NORMALCHAR;
-NORMALCHAR: [0-9a-zA-Z \n\t\r\f./];
+NORMALCHAR: [0-9a-zA-Z \n\t\r\f./:];
 ESCAPEDCHAR: '\\*' | '\\+' | '\\(' | '\\)' | '\\[' | '\\-';
 
 ANY: .;
